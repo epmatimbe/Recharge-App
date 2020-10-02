@@ -5,13 +5,13 @@
     </div>
     <div class="form p-5">
         <div class="container w-100 mb-4 row">
-            <div class="col-4 p-3 text-left">Valor</div>
+            <div class="col-4 p-2 text-left">Valor</div>
             <div class="col">
                 <input type="text" 
                     name="cellphone_number"
                     v-model="$v.amount.$model" 
                     placeholder="Ex: 50" 
-                    class="input w-100 p-3">
+                    class="input w-100 p-2">
                 <div v-if="$v.amount.$error" class="text-left text-danger">
                     <span v-if="!$v.amount.required">Este campo é de preenchimento obrigatório</span>
                     <span v-else-if="!$v.amount.numeric">Somente são permitidos números</span>
@@ -20,7 +20,7 @@
         </div>
         
         <div class="w-100 mb-4 row pl-4 text-center">
-            <button class="ml-2 p-2 rounded w-25"
+            <button class="ml-2 p-2 rounded w-25 btn"
                 :class="{'btn-secondary':$v.$invalid,'btn-primary': !$v.$invalid}">
             <span>Obter</span>    
             <div class="d-none spinner-border"></div>

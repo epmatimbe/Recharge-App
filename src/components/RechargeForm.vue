@@ -12,12 +12,15 @@
     </div>
     <div class="form p-5">
         <div class="container w-100 mb-4 row">
-            <div class="col-4 p-3 text-left">Prefixo</div>
+            <div class="col-4 p-2 text-left">País</div>
             <div class="col text-left">
                 <select class="input w-100 p-2">
                     <option value="" >
-                        -- selecionar prefixo --</option>
+                        -- selecionar o país --</option>
                 </select> 
+                <div v-if="$v.country.$error" class="text-left text-danger">
+                    <span v-if="!$v.country.required">Este campo é de preenchimento obrigatório</span>
+                    </div>
             </div>
         </div>
         <div class="container w-100 mb-4 row">
@@ -49,7 +52,8 @@
             </div>
         </div>
         <div class="w-100 mb-4 row pl-4">
-            <button class="ml-2 p-2 rounded"
+            <button class="ml-2 p-2 rounded btn"
+            @click="submit()"
                 :class="{'btn-secondary':$v.$invalid,'btn-primary': !$v.$invalid}">
             <span>Recarregar</span>    
             <div class="d-none spinner-border"></div>
@@ -69,14 +73,14 @@ export default {
     data(){
         return{
             cellphoneNumber:"",
-            countryPrefix:"",
+            country:"",
             token:"",
             totalTransactions: 0,
             totalAmount: 0,
         }
     },
     validations: {
-        // countryPrefix: {required},
+        country: {required},
         cellphoneNumber: {required, numeric},
         token: {required, numeric},
     },
@@ -89,8 +93,17 @@ export default {
         getAmount()
         .then(response => {
             this.totalAmount = response.data.length;
-        });
-        
+        });  
+    },
+    methods:{
+        submit(){
+            if(this.$v.$invalid) {
+                this.$v.$touch();
+                return
+            }
+
+
+        }
     }
 }
 </script>
