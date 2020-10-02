@@ -1,26 +1,18 @@
 <template>
   <div id="app">
-    <div class="w-100 mt-5">
-      <div class="nav d-flex flex-row justify-content-between p-2 align-items-end">
-          <h2>Recarregamento do telemóvel</h2>
-          
-        <div class="d-flex flex-column text-left text-dark">
-          <div class="bg- p-1  ">0 transacções</div>
-         <div class="bg- p-1">0mt acumulados</div>
-        </div>
-      </div>
-    </div>
-    <RechargeForm/>
+    <transition>
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
-import RechargeForm from "./components/RechargeForm";
+
 export default {
   name: 'App',
   components: {
-    RechargeForm
-  }
+  },
+  
 }
 </script>
 

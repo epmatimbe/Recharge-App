@@ -1,4 +1,15 @@
 <template>
+<div>
+    <div class="w-100 mt-5">
+      <div class="nav d-flex flex-row justify-content-between p-2 align-items-end">
+          <h2>Recarregamento do telemóvel</h2>
+          
+        <div class="d-flex flex-column text-right text-dark">
+          <div class="bg- p-1  ">{{totalTransactions}} transacções</div>
+         <div class="bg- p-1">{{totalAmount}}mt acumulados</div>
+        </div>
+      </div>
+    </div>
     <div class="form p-5">
         <div class="container w-100 mb-4 row">
             <div class="col-4 p-3 text-left">Prefixo</div>
@@ -40,17 +51,25 @@
             <div class="d-none spinner-border"></div>
             </button>
         </div>
+        <router-link to="/my-token">
+            <div class="btn-get-token font-italic">Clique aqui para obter a recarga(token)</div>
+        </router-link>
     </div>
+</div>
 </template>
 <script>
 import { required, numeric } from 'vuelidate/lib/validators'
+import { getTotalTransactions,getAmount } from "./../core/get_api_data.js";
+
 export default {
     data(){
         return{
             cellphoneNumber:"",
             countryPrefix:"",
-            token:""
-        }
+            token:"",
+      totalTransactions: 0,
+      totalAmount: 0,
+    }
     },
     validations: {
         // countryPrefix: {required},
@@ -58,7 +77,16 @@ export default {
         // token: {required},
     },
     created(){
-        console.log(this.$v)
+        getTotalTransactions()
+        .then(response => {
+            this.totalTransactions = response.data.length;
+        });
+
+        getAmount()
+        .then(response => {
+            this.totalAmount = response.data.length;
+        });
+        
     }
 }
 </script>
@@ -90,5 +118,12 @@ select,input{
 select:focus,input:focus{
   border: 1px solid #007bff;
   border-radius: 4px;
+}
+.btn-get-token{
+    color:#5d5d5d;
+    text-decoration: underline;
+}
+.btn-get-token:hover{
+    color:#007bff;
 }
 </style>
