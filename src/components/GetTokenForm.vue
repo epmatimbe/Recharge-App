@@ -19,7 +19,6 @@
             </div>
         </div>
         
-        {{$v.$invalid}}
         <div class="w-100 mb-4 row pl-4 text-center">
             <button class="ml-2 p-2 rounded w-25"
                 :class="{'btn-secondary':$v.$invalid,'btn-primary': !$v.$invalid}">

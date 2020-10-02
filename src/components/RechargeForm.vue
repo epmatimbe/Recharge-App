@@ -5,8 +5,8 @@
           <h2>Recarregamento do telemóvel</h2>
           
         <div class="d-flex flex-column text-right text-dark">
-          <div class="bg- p-1  ">{{totalTransactions}} transacções</div>
-         <div class="bg- p-1">{{totalAmount}}mt acumulados</div>
+          <div class="bg- p-1  "><span class=" font-weight-bolder text-success"><b>{{totalTransactions}}</b></span> transacções</div>
+         <div class="bg- p-1"><span class=" font-weight-bolder text-info"><b>{{totalAmount}}</b></span> mt acumulados</div>
         </div>
       </div>
     </div>
@@ -14,20 +14,20 @@
         <div class="container w-100 mb-4 row">
             <div class="col-4 p-3 text-left">Prefixo</div>
             <div class="col text-left">
-                <select class="input w-25 p-3">
+                <select class="input w-100 p-2">
                     <option value="" >
                         -- selecionar prefixo --</option>
                 </select> 
             </div>
         </div>
         <div class="container w-100 mb-4 row">
-            <div class="col-4 p-3 text-left">Número de celular</div>
+            <div class="col-4 p-2 text-left">Número de celular</div>
             <div class="col">
                 <input type="text" 
                     name="cellphone_number"
                     v-model="$v.cellphoneNumber.$model" 
                     placeholder="Ex: 840123456" 
-                    class="input w-100 p-3">
+                    class="input w-100 p-2">
                 <div v-if="$v.cellphoneNumber.$error" class="text-left text-danger">
                     <span v-if="!$v.cellphoneNumber.required">Este campo é de preenchimento obrigatório</span>
                     <span v-else-if="!$v.cellphoneNumber.numeric">Somente são permitidos números</span>
@@ -35,15 +35,19 @@
             </div>
         </div>
         <div class="container w-100 mb-5 row">
-            <div class="col-4 p-3 text-left">Código da recarga(token)</div>
+            <div class="col-4 p-2 text-left">Código da recarga(token)</div>
             <div class="col">
                 <input type="text" 
                     name="token" 
                     placeholder="XXXXXXXXXXXXXXXXXXXXXX" 
-                    class="input w-100 p-3">
+                    class="input w-100 p-2"
+                    v-model="$v.token.$model" >
+                <div v-if="$v.token.$error" class="text-left text-danger">
+                    <span v-if="!$v.token.required">Este campo é de preenchimento obrigatório</span>
+                    <span v-else-if="!$v.token.numeric">Somente são permitidos números</span>
+                </div>
             </div>
         </div>
-        {{$v.$invalid}}
         <div class="w-100 mb-4 row pl-4">
             <button class="ml-2 p-2 rounded"
                 :class="{'btn-secondary':$v.$invalid,'btn-primary': !$v.$invalid}">
@@ -67,14 +71,14 @@ export default {
             cellphoneNumber:"",
             countryPrefix:"",
             token:"",
-      totalTransactions: 0,
-      totalAmount: 0,
-    }
+            totalTransactions: 0,
+            totalAmount: 0,
+        }
     },
     validations: {
         // countryPrefix: {required},
         cellphoneNumber: {required, numeric},
-        // token: {required},
+        token: {required, numeric},
     },
     created(){
         getTotalTransactions()
