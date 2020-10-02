@@ -4,9 +4,9 @@
       <div class="nav d-flex flex-row justify-content-between p-2 align-items-end">
           <h2>Recarregamento do telemóvel</h2>
           
-        <div class="d-flex flex-column text-left">
-          <div>0 transacções</div>
-         <div>0mt acumulados</div>
+        <div class="d-flex flex-column text-left text-dark">
+          <div class="bg- p-1  ">0 transacções</div>
+         <div class="bg- p-1">0mt acumulados</div>
         </div>
       </div>
     </div>

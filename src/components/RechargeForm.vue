@@ -13,9 +13,14 @@
             <div class="col-4 p-3 text-left">Número de celular</div>
             <div class="col">
                 <input type="text" 
-                    name="cellphone_number" 
-                    placeholder="Ex: 8401234567" 
+                    name="cellphone_number"
+                    v-model="$v.cellphoneNumber.$model" 
+                    placeholder="Ex: 840123456" 
                     class="input w-100 p-3">
+                <div v-if="$v.cellphoneNumber.$error" class="text-left text-danger">
+                    <span v-if="!$v.cellphoneNumber.required">Este campo é de preenchimento obrigatório</span>
+                    <span v-else-if="!$v.cellphoneNumber.numeric">Somente são permitidos números</span>
+                </div>
             </div>
         </div>
         <div class="container w-100 mb-5 row">
@@ -27,14 +32,34 @@
                     class="input w-100 p-3">
             </div>
         </div>
+        {{$v.$invalid}}
         <div class="w-100 mb-4 row pl-4">
-            <button class="btn-primary ml-2 p-2 rounded ">Recarregar</button>
+            <button class="ml-2 p-2 rounded"
+                :class="{'btn-secondary':$v.$invalid,'btn-primary': !$v.$invalid}">
+            <span>Recarregar</span>    
+            <div class="d-none spinner-border"></div>
+            </button>
         </div>
     </div>
 </template>
 <script>
+import { required, numeric } from 'vuelidate/lib/validators'
 export default {
-    
+    data(){
+        return{
+            cellphoneNumber:"",
+            countryPrefix:"",
+            token:""
+        }
+    },
+    validations: {
+        // countryPrefix: {required},
+        cellphoneNumber: {required, numeric},
+        // token: {required},
+    },
+    created(){
+        console.log(this.$v)
+    }
 }
 </script>
 <style>
@@ -58,21 +83,12 @@ export default {
   clip-path: polygon(100% 0%, 0 0%, 50% 100%);
 }
 
+select,input{
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+}
 select:focus,input:focus{
   border: 1px solid #007bff;
   border-radius: 4px;
 }
-/* 
-.input{
-    border-radius: 0;
-    border-width: 1px;
-    padding: .5rem;
-    border-color: grey;
-    border-style: solid;
-    margin: 0 auto;
-}
-select:focus,input:focus{
-    border-color: rgb(0, 132, 255);
-} */
-
 </style>
